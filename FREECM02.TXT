@@ -1,0 +1,175 @@
+nop run this one second to register the FreeCam class's event handler method
+ENTRYPOINT
+nop NAME FCLa
+
+nop IEventBus bus = NeoForge.EVENT_BUS
+getstatic net/neoforged/neoforge/common/NeoForge.EVENT_BUS Lnet/neoforged/bus/api/IEventBus;
+nop [ IEventBus bus]
+
+nop get the class corresponding to the event to register a handler for
+new net/neoforged/neoforge/client/event/ViewportEvent$ComputeCameraAngles
+dup
+new net/minecraft/client/Camera
+dup
+invokespecial net/minecraft/client/Camera.<init>()V
+sipush 0
+i2d
+sipush 0
+i2f
+dup
+dup
+invokespecial net/neoforged/neoforge/client/event/ViewportEvent$ComputeCameraAngles.<init>(Lnet/minecraft/client/Camera;DFFF)V
+invokevirtual net/neoforged/neoforge/client/event/ViewportEvent$ComputeCameraAngles.getClass()Ljava/lang/Class;
+nop [ IEventBus bus, Class<ComputeCameraAngles> cEvent ]
+
+
+nop Method load = CriminalClassloader.INSTANCE.getClass().getDeclaredMethods()[0]
+getstatic xyz/lilyflower/catj/util/CriminalClassloader.INSTANCE Lxyz/lilyflower/catj/util/CriminalClassloader;
+invokevirtual xyz/lilyflower/catj/util/CriminalClassloader.getClass()Ljava/lang/Class;
+invokevirtual java/lang/Class.getDeclaredMethods()[Ljava/lang/reflect/Method;
+sipush 0
+aaload
+nop [ IEventBus bus, Class<ComputeCameraAngles> cEvent, Method load ]
+
+nop load.setAccessible(true)
+dup
+sipush 1
+invokevirtual java/lang/reflect/Method.setAccessible(Z)V
+nop [ IEventBus bus, Class<ComputeCameraAngles> cEvent, Method load ]
+
+nop CriminalClassloader loader = CriminalClassloader.INSTANCE
+getstatic xyz/lilyflower/catj/util/CriminalClassloader.INSTANCE Lxyz/lilyflower/catj/util/CriminalClassloader;
+nop [ IEventBus bus, Class<ComputeCameraAngles> cEvent, Method load, CriminalClassloader loader ]
+
+nop Object[2] objects
+sipush 2
+anewarray java/lang/Object
+dup
+dup
+nop [ IEventBus bus, Class<ComputeCameraAngles> cEvent, Method load, CriminalClassloader loader, Object[] objects, Object[] objects, Object[] objects ]
+
+nop objects[0] = (Object)"FCa"
+sipush 0
+nop FCa
+new java/lang/StringBuilder
+dup
+invokespecial java/lang/StringBuilder.<init>()V
+sipush 70
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 67
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 97
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+invokevirtual java/lang/StringBuilder.toString()Ljava/lang/String;
+checkcast java/lang/Object
+aastore
+nop [ IEventBus bus, Class<ComputeCameraAngles> cEvent, Method load, CriminalClassloader loader, Object[] objects, Object[] objects ]
+
+nop objects[1] = (Object)null
+sipush 1
+aconst_null
+checkcast java/lang/Object
+aastore
+nop [ IEventBus bus, Class<ComputeCameraAngles> cEvent, Method load, CriminalClassloader loader, Object[] objects ]
+
+nop Class cHandler = (Class)load.invoke(loader,objects)//note these are cached so it will give us the previously loaded class by that name even though this call has a null bytecode argument
+invokevirtual java/lang/reflect/Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+checkcast java/lang/Class
+nop [ IEventBus bus, Class<ComputeCameraAngles> cEvent, Class cHandler ]
+
+nop Method run = cHandler.getDeclaredMethods()[0]
+invokevirtual java/lang/Class.getDeclaredMethods()[Ljava/lang/reflect/Method;
+sipush 0
+aaload
+nop [IEventBus bus, Class<ComputeCameraAngles> cEvent, Method runMethod ]
+
+nop MethodHandle runHandle = MethodHandles.lookup().unreflect(runMethod)
+invokestatic java/lang/invoke/MethodHandles.lookup()Ljava/lang/invoke/MethodHandles$Lookup;
+swap
+invokevirtual java/lang/invoke/MethodHandles$Lookup.unreflect(Ljava/lang/reflect/Method;)Ljava/lang/invoke/MethodHandle;
+nop [IEventBus bus, Class<ComputeCameraAngles> cEvent, MethodHandle runHandle ]
+
+
+nop Class cConsumer = Class.forName("java.util.function.Consumer")
+new java/lang/StringBuilder
+dup
+invokespecial java/lang/StringBuilder.<init>()V
+
+nop java.
+sipush 106
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 97
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 118
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 97
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 46
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+nop util.
+sipush 117
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 116
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 105
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 108
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 46
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+nop function.
+sipush 102
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 117
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 110
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 99
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 116
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 105
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 111
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 110
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 46
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+nop Consumer
+sipush 67
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 111
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 110
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 115
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 117
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 109
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 101
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 114
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+invokevirtual java/lang/StringBuilder.toString()Ljava/lang/String;
+invokestatic java/lang/Class.forName(Ljava/lang/String;)Ljava/lang/Class;
+nop [IEventBus bus, Class<ComputeCameraAngles> cEvent, MethodHandle runHandle, Class<Consumer> cConsumer ]
+
+
+nop Consumer runCon = MethodHandleProxies.asInterfaceInstance(cConsumer, runHandle)
+swap
+invokestatic java/lang/invoke/MethodHandleProxies.asInterfaceInstance(Ljava/lang/Class;Ljava/lang/invoke/MethodHandle;)Ljava/lang/Object;
+checkcast java/util/function/Consumer
+nop [IEventBus bus, Class<ComputeCameraAngles> cEvent, Consumer runCon ]
+
+nop bus.addListener(cEvent, runCon)
+invokeinterface net/neoforged/bus/api/IEventBus.addListener(Ljava/lang/Class;Ljava/util/function/Consumer;)V
+nop [ ]
+
+return

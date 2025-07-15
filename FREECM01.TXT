@@ -1,0 +1,171 @@
+nop run this one first to create the class with the FreeCam event handler method
+NAME FCa
+DESC (Lnet/neoforged/neoforge/client/event/ViewportEvent$ComputeCameraAngles;)V
+
+nop get old entity pos for calculations
+new net/minecraft/world/phys/Vec3
+dup
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+invokevirtual net/minecraft/client/Minecraft.getCameraEntity()Lnet/minecraft/world/entity/Entity;
+dup
+getfield net/minecraft/world/entity/Entity.zo D
+dstore 1
+dup
+getfield net/minecraft/world/entity/Entity.yo D
+dstore 3
+getfield net/minecraft/world/entity/Entity.xo D
+dload 3
+dload 1
+invokespecial net/minecraft/world/phys/Vec3.<init>(DDD)V
+nop [ Vec3 po ]
+
+nop save existing pos
+aload 0
+invokevirtual net/neoforged/neoforge/client/event/ViewportEvent.getCamera()Lnet/minecraft/client/Camera;
+invokevirtual net/minecraft/client/Camera.getPosition()Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 po, Vec3 prev ]
+
+nop get entity position
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+invokevirtual net/minecraft/client/Minecraft.getCameraEntity()Lnet/minecraft/world/entity/Entity;
+invokevirtual net/minecraft/world/entity/Entity.position()Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 po, Vec3 prev, Vec3 ent ]
+
+nop * -delta
+aload 0
+invokevirtual net/neoforged/neoforge/client/event/ViewportEvent.getPartialTick()D
+dneg
+invokevirtual net/minecraft/world/phys/Vec3.scale(D)Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 po, Vec3 prev, Vec3 ent1d ]
+
+nop get look vector for calculating new camera position
+swap
+new net/minecraft/world/phys/Vec3
+dup
+aload 0
+invokevirtual net/neoforged/neoforge/client/event/ViewportEvent.getCamera()Lnet/minecraft/client/Camera;
+invokevirtual net/minecraft/client/Camera.getLookVector()Lorg/joml/Vector3f;
+invokespecial net/minecraft/world/phys/Vec3.<init>(Lorg/joml/Vector3f;)V
+nop [ Vec3 po, Vec3 ent1d, Vec3 prev, Vec3 look ]
+
+nop scale look vector by whether forward or backward keys are pressed
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+getfield net/minecraft/client/Minecraft.options Lnet/minecraft/client/Options;
+dup
+getfield net/minecraft/client/Options.keyUp Lnet/minecraft/client/KeyMapping;
+invokevirtual net/minecraft/client/KeyMapping.isDown()Z
+swap
+getfield net/minecraft/client/Options.keyDown Lnet/minecraft/client/KeyMapping;
+invokevirtual net/minecraft/client/KeyMapping.isDown()Z
+isub
+i2d
+invokevirtual net/minecraft/world/phys/Vec3.scale(D)Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 po, Vec3 ent1d, Vec3 prev, Vec3 lookScaled ]
+
+nop also do sideways vector
+new net/minecraft/world/phys/Vec3
+dup
+aload 0
+invokevirtual net/neoforged/neoforge/client/event/ViewportEvent.getCamera()Lnet/minecraft/client/Camera;
+invokevirtual net/minecraft/client/Camera.getLeftVector()Lorg/joml/Vector3f;
+invokespecial net/minecraft/world/phys/Vec3.<init>(Lorg/joml/Vector3f;)V
+nop [ Vec3 po, Vec3 ent1d, Vec3 prev, Vec3 lookScaled, Vec3 left]
+
+nop scale sideways vector by whether left or right keys are pressed
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+getfield net/minecraft/client/Minecraft.options Lnet/minecraft/client/Options;
+dup
+getfield net/minecraft/client/Options.keyLeft Lnet/minecraft/client/KeyMapping;
+invokevirtual net/minecraft/client/KeyMapping.isDown()Z
+swap
+getfield net/minecraft/client/Options.keyRight Lnet/minecraft/client/KeyMapping;
+invokevirtual net/minecraft/client/KeyMapping.isDown()Z
+isub
+i2d
+invokevirtual net/minecraft/world/phys/Vec3.scale(D)Lnet/minecraft/world/phys/Vec3;
+invokevirtual net/minecraft/world/phys/Vec3.add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 po, Vec3 ent1d, Vec3 prev, Vec3 controlsScaledOnOff ]
+
+nop adjust scale so when key is pressed it is the m/frame amount that corresponds to about 5 m/s
+sipush 5
+i2d
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+invokevirtual net/minecraft/client/Minecraft.getFps()I
+i2d
+ddiv
+invokevirtual net/minecraft/world/phys/Vec3.scale(D)Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 po, Vec3 ent1d, Vec3 prev, Vec3 controlsScaledMpf ]
+
+nop calculate new camera position as old + scale*(look+left) and then add that to the subtotal
+invokevirtual net/minecraft/world/phys/Vec3.add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+invokevirtual net/minecraft/world/phys/Vec3.add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 po, Vec3 ent1dc ]
+
+nop -eye height
+new net/minecraft/world/phys/Vec3
+dup
+dconst_0
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+invokevirtual net/minecraft/client/Minecraft.getCameraEntity()Lnet/minecraft/world/entity/Entity;
+invokevirtual net/minecraft/world/entity/Entity.getEyeHeight()F
+f2d
+dneg
+dconst_0
+invokespecial net/minecraft/world/phys/Vec3.<init>(DDD)V
+invokevirtual net/minecraft/world/phys/Vec3.add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+nop [Vec3 po, Vec3 ent1dcy]
+
+nop *1/(1-delta)
+dconst_1
+dconst_1
+aload 0
+invokevirtual net/neoforged/neoforge/client/event/ViewportEvent.getPartialTick()D
+dsub
+ddiv
+invokevirtual net/minecraft/world/phys/Vec3.scale(D)Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 po, Vec3 fco ]
+
+nop if F1 use the new value, otherwise use the old value
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+getfield net/minecraft/client/Minecraft.options Lnet/minecraft/client/Options;
+getfield net/minecraft/client/Options.hideGui Z
+nop getfield net/minecraft/client/Options.smoothCamera Z
+i2d
+invokevirtual net/minecraft/world/phys/Vec3.lerp(Lnet/minecraft/world/phys/Vec3;D)Lnet/minecraft/world/phys/Vec3;
+nop [ Vec3 lerped ]
+
+nop set entity's xo yo zo
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+invokevirtual net/minecraft/client/Minecraft.getCameraEntity()Lnet/minecraft/world/entity/Entity;
+dup_x1
+swap
+dup_x1
+getfield net/minecraft/world/phys/Vec3.x D
+putfield net/minecraft/world/entity/Entity.xo D
+nop [ Entity, Vec3 lerped ]
+
+swap
+dup_x1
+swap
+dup_x1
+getfield net/minecraft/world/phys/Vec3.y D
+putfield net/minecraft/world/entity/Entity.yo D
+nop [ Entity, Vec3 lerped ]
+
+getfield net/minecraft/world/phys/Vec3.z D
+putfield net/minecraft/world/entity/Entity.zo D
+nop [ ]
+
+nop also set culling to the opposite of the same setting
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+dup
+getfield net/minecraft/client/Minecraft.options Lnet/minecraft/client/Options;
+getfield net/minecraft/client/Options.hideGui Z
+nop getfield net/minecraft/client/Options.smoothCamera Z
+sipush 1
+isub
+ineg
+putfield net/minecraft/client/Minecraft.smartCull Z
+nop [ ]
+
+return
