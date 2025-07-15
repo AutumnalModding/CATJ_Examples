@@ -1,0 +1,459 @@
+https://github.com/AutumnalModding/CrimesAgainstTheJVM/blob/master/src/main/java/xyz/lilyflower/catj/
+https://github.com/FabricMC/yarn/blob/1.21.1/mappings/net/minecraft/client/render/GameRenderer.mapping
+https://github.com/FabricMC/yarn/blob/1.21.1/mappings/net/minecraft/client/MinecraftClient.mapping
+https://raw.githubusercontent.com/FabricMC/intermediary/refs/heads/master/mappings/1.21.1.tiny
+https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
+https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Class.html
+C:\Users\[redacted]\Documents\Mod Stuff\fabrictest\.gradle\loom-cache\minecraftMaven\net\minecraft
+https://github.com/ParchmentMC/Parchment/blob/versions/1.21.x/data/net/minecraft
+https://github.com/neoforged/NeoForge/blob/1.21.x/patches/net/minecraft
+https://github.com/neoforged/NeoForge/blob/1.21.x/src/main/java/net/neoforged/neoforge/client/event/ViewportEvent.java
+https://github.com/neoforged/Bus/tree/main/src/main/java/net/neoforged/bus/api
+https://nekoyue.github.io/ForgeJavaDocs-NG/javadoc/1.21.x-neoforge/net/minecraft/client/package-summary.html
+https://docs.neoforged.net/docs/concepts/events/
+
+
+can't seem to access any of these though? it just throws an exception on trying to execute the code
+it seems they need to use the deobfuscated neoforge (parchment) names!
+client/MinecraftClient 310 fgo client/Minecraft
+	chunkCullingEnabled?
+client/network/ClientPlayerEntity 746 geb client/player/LocalPlayer
+ClientWorld 638 fzf
+MessageHandler 7594 fzz
+text/Text 2561 wz network/chat/FormattedText?
+GlfwUtil 3673 eza
+InGameHud Gui?
+
+it seems aload_n doesn't work? aload n does though?
+
+	invokestatic net/minecraft/client/Minecraft.getVersionType()Ljava/lang/String;
+Caused by: java.lang.IncompatibleClassChangeError: Expected static method 'java.lang.String net.minecraft.client.Minecraft.getVersionType()'
+	invokestatic net/minecraft/client/Minecraft.getVersionType2()Ljava/lang/String;
+Caused by: java.lang.NoSuchMethodError: 'java.lang.String net.minecraft.client.Minecraft.getVersionType2()'
+	invokestatic net/minecraft/client/Minecraft.bg()Ljava/lang/String;
+Caused by: java.lang.NoSuchMethodError: 'java.lang.String net.minecraft.client.Minecraft.bg()'
+	invokestatic fgo.bg()Ljava/lang/String;
+Caused by: java.lang.NoClassDefFoundError: fgo
+
+ENTRYPOINT
+getstatic fgo.E Lfgo;
+pop
+invokestatic fgo.Q()Lfgo;
+pop
+return
+
+
+
+world field_17780
+getfield fgo.s Lgeb;
+invokespecial geb.
+pop
+
+
+
+ENTRYPOINT//run the code (otherwise it defines a class with a public static method named run)
+getstatic fgo.E Lfgo;//get net/minecraft/MinecraftClient.instance
+getfield fgo.r Lfzf;//from that, get the net/minecraft/MinecraftClient.world which is a net/minecraft/client/world/ClientWorld
+sipush 1//push (int)(short)1 to stack
+i2l//convert to long
+invokespecial fzf.c(J)V//on the ClientWorld, call setTimeOfDay
+return
+
+
+
+ENTRYPOINT
+invokestatic fgo.bc()Ljava/lang/String;
+invokestatic fgo.Q()Lfgo;
+getfield fgo.r Lfzf;
+return
+getfield fzf.E Lgex;
+sipush 1
+i2d
+putfield gex.W D
+return
+
+
+invokeinterface fgo.aW()Lfzz;
+invokestatic fgo.bc()Ljava/lang/String;
+invokestatic wz.a(Ljava/lang/String;)Lwz;
+sipush 1
+invokevirtual fzz.a(Lwz;Z)V
+return
+getfield fgo.r Lfzf;
+return
+getfield fzf.E Lgex;
+sipush 1
+i2d
+putfield gex.W D
+return
+
+
+ENTRYPOINT
+SUPER net/minecraft/client/Minecraft
+aload 0
+invokespecial net/minecraft/client/Minecraft.<init>()V
+return
+
+
+ENTRYPOINT
+invokestatic net/minecraft/client/Minecraft.getVersionType()Ljava/lang/String;
+getstatic java/lang/System.out Ljava/io/PrintStream;
+invokestatic net/minecraft/client/Minecraft.getVersionType()Ljava/lang/String;
+invokevirtual java/io/PrintStream.println(Ljava/lang/String;)V
+return
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+getfield net/minecraft/client/Minecraft.E Lnet/minecraft/client/player/LocalPlayer;
+sipush 1
+i2d
+putfield net/minecraft/client/player/LocalPlayer.zLast D
+return
+
+
+//pauses the game---------------------------------------------------------------------------------
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+sipush 0
+invokevirtual net/minecraft/client/Minecraft.pauseGame(Z)V
+return
+
+
+
+
+//try to get field names (can't find class?)---------------------------------
+ENTRYPOINT
+getstatic java/lang/System.out Ljava/io/PrintStream;
+
+nop "net/minecraft/world/entity/Entity"
+new java/lang/StringBuilder
+dup
+invokespecial java/lang/StringBuilder.<init>()V
+sipush 110
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 101
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 116
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 47
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+sipush 109
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 105
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 110
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 101
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 99
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 114
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 97
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 102
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 116
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 47
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+sipush 119
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 111
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 114
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 108
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 100
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 47
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+sipush 101
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 110
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 116
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 105
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 116
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 121
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 47
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+sipush 69
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 110
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 116
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 105
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 116
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush 121
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+
+invokevirtual java/lang/StringBuilder.toString()Ljava/lang/String;
+
+
+invokestatic java/lang/Class.forName(Ljava/lang/String;)Ljava/lang/Class;
+return
+invokevirtual java/lang/Class.getDeclaredField()[Ljava/lang/reflect/Field;
+sipush 0
+aaload
+invokevirtual java/lang/reflect/Field.getName()Ljava/lang/String;
+invokevirtual java/io/PrintStream.println(Ljava/lang/String;)V
+
+
+
+
+
+
+
+//print names of three fields at a time-------------------------------------
+ENTRYPOINT
+getstatic java/lang/System.out Ljava/io/PrintStream;
+astore 1
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+invokevirtual net/minecraft/client/Minecraft.getCameraEntity()Lnet/minecraft/world/entity/Entity;
+invokevirtual net/minecraft/world/entity/Entity.getClass()Ljava/lang/Class;
+invokevirtual java/lang/Class.getDeclaredFields()[Ljava/lang/reflect/Field;
+dup
+sipush 11
+aaload
+invokevirtual java/lang/reflect/Field.getName()Ljava/lang/String;
+swap
+dup
+sipush 12
+aaload
+invokevirtual java/lang/reflect/Field.getName()Ljava/lang/String;
+swap
+sipush 13
+aaload
+invokevirtual java/lang/reflect/Field.getName()Ljava/lang/String;
+aload 1
+swap
+invokevirtual java/io/PrintStream.println(Ljava/lang/String;)V
+aload 1
+swap
+invokevirtual java/io/PrintStream.println(Ljava/lang/String;)V
+aload 1
+swap
+invokevirtual java/io/PrintStream.println(Ljava/lang/String;)V
+return
+
+for Entity (some of these are private):
+LOGGER
+POSITION_REMINDER_INTERVAL
+WATER_VISION_MAX_TIME
+WATER_VISION_QUICK_TIME
+WATER_VISION_QUICK_PERCENT
+SUFFOCATING_COLLISION_CHECK_SCALE
+MINOR_COLLISION_ANGLE_THRESHOLD_RADIAN
+connection
+stats
+recipeBook
+ambientSoundHandlers
+permissionLevel
+xLast
+yLast1
+zLast
+yRotLast
+xRotLast
+lastOnGround
+crouching
+wasShiftKeyDown
+wasSprinting
+positionReminder
+flashOnSetHealth
+input
+minecraft
+sprintTriggerTime
+yBob
+xBob
+yBobO
+xBobO
+jumpRidingTicks
+jumpRidingScale
+spinningEffectIntensity
+oSpinningEffectIntensity
+startedUsingItem
+usingItemHand
+handsBusy
+autoJumpEnabled
+autoJumpTime
+wasFallFlying
+waterVisionTime
+showDeathScreen
+doLimitedCrafting
+
+//use reflection to change a private field (in this case, field 18 in the array which the player's Entity.crouching)-----------------------
+ENTRYPOINT
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+invokevirtual net/minecraft/client/Minecraft.getCameraEntity()Lnet/minecraft/world/entity/Entity;
+dup
+invokevirtual net/minecraft/world/entity/Entity.getClass()Ljava/lang/Class;
+invokevirtual java/lang/Class.getDeclaredFields()[Ljava/lang/reflect/Field;
+sipush 18
+aaload
+dup
+sipush 1
+invokevirtual java/lang/reflect/Field.setAccessible(Z)V
+swap
+sipush 1
+invokevirtual java/lang/reflect/Field.setBoolean(Ljava/lang/Object;Z)V
+return
+
+
+//try to change a private final field (but it won't help since this mod can only override public <init> or public static run)
+ENTRYPOINT
+new FreeCamera
+<init>
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+
+nop use reflection to set client.gameRenderer.camera to the freecamera (note camera is both private and final)
+invokevirtual net/minecraft/world/Camera.getClass()Ljava/lang/Class;
+
+nop "camera"
+new java/lang/StringBuilder
+dup
+invokespecial java/lang/StringBuilder.<init>()V
+sipush c
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush a
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush m
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush e
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush r
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush a
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+invokevirtual java/lang/StringBuilder.toString()Ljava/lang/String;
+invokevirtual java/lang/Class.getDeclaredField(Ljava/lang/String;)Ljava/lang/reflect/Field;
+
+nop make camera accessible
+dup
+sipush 1
+invokevirtual java/lang/reflect/Field.setAccessible(Z)V
+
+nop make camera Field's modifiers accessible
+dup
+invokevirtual net/minecraft/world/render/Field.getClass()Ljava/lang/Class;
+nop "modifiers"
+new java/lang/StringBuilder
+dup
+invokespecial java/lang/StringBuilder.<init>()V
+sipush m
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush o
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush d
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush i
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush f
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush i
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush e
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush r
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+sipush s
+invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+invokevirtual java/lang/StringBuilder.toString()Ljava/lang/String;
+invokevirtual java/lang/Class.getDeclaredField(Ljava/lang/String;)Ljava/lang/reflect/Field;
+dup
+sipush 1
+invokevirtual java/lang/reflect/Field.setAccessible(Z)V
+
+nop set camera Field's modifiers so it isn't final
+swap??etc
+dup
+invokevirtual java/lang/reflect/Field.getModifiers()I
+getstatic java.lang.reflect.Modifier.FINAL I
+~
+&
+invokevirtual java/lang/reflect/Field.setInt(Ljava/lang/Object;Z)V
+
+nop set camera to the freecam
+putfield net/minecraft/world/render/GameRenderer.camera LCamera;
+
+return
+
+
+
+//---------------------------------------------
+nop "xyz/lilyflower/catj/util/FCa"
+nop new java/lang/StringBuilder
+nop dup
+nop invokespecial java/lang/StringBuilder.<init>()V
+nop 
+nop nop xyz/
+nop sipush 120
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 121
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 122
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 47
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop 
+nop nop lilyflower/
+nop sipush 108
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 105
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 108
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 121
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 102
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 108
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 111
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 119
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 101
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 114
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 47
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop 
+nop nop catj/
+nop sipush 99
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 97
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 116
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 106
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 47
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop 
+nop nop util/
+nop sipush 117
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 116
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 105
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 108
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop sipush 47
+nop invokevirtual java/lang/StringBuilder.append(C)Ljava/lang/StringBuilder;
+nop 
+nop invokevirtual java/lang/StringBuilder.toString()Ljava/lang/String;
+nop 
+
+nop invokestatic java/lang/Class.forName(Ljava/lang/String;)Ljava/lang/Class;
