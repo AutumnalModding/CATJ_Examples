@@ -1,0 +1,31 @@
+ENTRYPOINT
+NAME blink
+
+nop get player
+invokestatic net/minecraft/client/Minecraft.getInstance()Lnet/minecraft/client/Minecraft;
+invokevirtual net/minecraft/client/Minecraft.getCameraEntity()Lnet/minecraft/world/entity/Entity;
+
+nop get where player is looking up to 20 blocks away
+dup
+sipush 20
+i2d
+sipush 0
+i2f
+sipush 0
+invokevirtual net/minecraft/world/entity/Entity.pick(DFZ)Lnet/minecraft/world/phys/HitResult;
+
+nop extract coordinates
+invokevirtual net/minecraft/world/phys/HitResult.getLocation()Lnet/minecraft/world/phys/Vec3;
+dup
+dup
+getfield net/minecraft/world/phys/Vec3.z D
+dstore 1
+getfield net/minecraft/world/phys/Vec3.y D
+dstore 3
+getfield net/minecraft/world/phys/Vec3.x D
+dload 3
+dload 1
+
+nop move player to position
+invokevirtual net/minecraft/world/entity/Entity.moveTo(DDD)V
+return
